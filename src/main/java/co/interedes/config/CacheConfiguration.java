@@ -42,6 +42,9 @@ public class CacheConfiguration {
             createCache(cm, co.interedes.domain.User.class.getName());
             createCache(cm, co.interedes.domain.Authority.class.getName());
             createCache(cm, co.interedes.domain.User.class.getName() + ".authorities");
+            createCache(cm, co.interedes.domain.Car.class.getName());
+            cm.createCache(co.interedes.domain.EntityAuditEvent.class.getName(), jcacheConfiguration);
+            createCache(cm, co.interedes.domain.Dog.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
