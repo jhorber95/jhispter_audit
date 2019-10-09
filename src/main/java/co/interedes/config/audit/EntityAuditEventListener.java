@@ -2,7 +2,6 @@ package co.interedes.config.audit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,12 +9,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;
 import javax.persistence.PostUpdate;
+import javax.servlet.http.HttpServletRequest;
 
 public class EntityAuditEventListener extends AuditingEntityListener {
 
     private final Logger log = LoggerFactory.getLogger(EntityAuditEventListener.class);
 
     private static BeanFactory beanFactory;
+
 
     @PostPersist
     public void onPostCreate(Object target) {

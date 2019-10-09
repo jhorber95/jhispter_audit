@@ -2,6 +2,7 @@ package co.interedes.web.rest;
 
 import co.interedes.domain.Dog;
 import co.interedes.service.DogService;
+import co.interedes.util.ClientInfo;
 import co.interedes.web.rest.errors.BadRequestAlertException;
 import co.interedes.service.dto.DogCriteria;
 import co.interedes.service.DogQueryService;
@@ -16,10 +17,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PreDestroy;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -44,6 +52,7 @@ public class DogResource {
 
     private final DogQueryService dogQueryService;
 
+
     public DogResource(DogService dogService, DogQueryService dogQueryService) {
         this.dogService = dogService;
         this.dogQueryService = dogQueryService;
@@ -57,7 +66,9 @@ public class DogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/dogs")
-    public ResponseEntity<Dog> createDog(@RequestBody Dog dog) throws URISyntaxException {
+//    @PreAuthorize("has ro")
+    public ResponseEntity<Dog> createDog(@RequestBody Dog dog, HttpServletRequest request) throws URISyntaxException {
+
         log.debug("REST request to save Dog : {}", dog);
         if (dog.getId() != null) {
             throw new BadRequestAlertException("A new dog cannot already have an ID", ENTITY_NAME, "idexists");
@@ -99,8 +110,10 @@ public class DogResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dogs in body.
      */
     @GetMapping("/dogs")
-    public ResponseEntity<List<Dog>> getAllDogs(DogCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<Dog>> getAllDogs(DogCriteria criteria, Pageable pageable, HttpServletRequest request) {
         log.debug("REST request to get Dogs by criteria: {}", criteria);
+        ClientInfo c = new ClientInfo();
+        c.printClientInfo(request);
         Page<Dog> page = dogQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

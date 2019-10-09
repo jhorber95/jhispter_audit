@@ -18,7 +18,6 @@ import java.util.Objects;
  * A Car.
  */
 @Entity
-@Audited
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "car")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -43,22 +42,6 @@ public class Car extends AbstractAuditingEntity implements Serializable {
     @Column(name = "model")
     private String model;
 
-    @Column(name = "created_date", nullable = false, updatable = false)
-    @CreatedDate
-    private Instant createdDate;
-
-    @Column(name = "modified_date")
-    @LastModifiedDate
-    private long modifiedDate;
-
-
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
-
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -112,37 +95,6 @@ public class Car extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public long getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(long modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
 
     public void setTypeFuel(String typeFuel) {
         this.typeFuel = typeFuel;
@@ -154,20 +106,17 @@ public class Car extends AbstractAuditingEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return createdDate == car.createdDate &&
-                modifiedDate == car.modifiedDate &&
+        return
                 Objects.equals(id, car.id) &&
                 Objects.equals(color, car.color) &&
                 Objects.equals(engine, car.engine) &&
                 Objects.equals(typeFuel, car.typeFuel) &&
-                Objects.equals(model, car.model) &&
-                Objects.equals(createdBy, car.createdBy) &&
-                Objects.equals(modifiedBy, car.modifiedBy);
+                Objects.equals(model, car.model);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, color, engine, typeFuel, model, createdDate, modifiedDate, createdBy, modifiedBy);
+        return Objects.hash(id, color, engine, typeFuel, model);
     }
 
     @Override
@@ -178,10 +127,6 @@ public class Car extends AbstractAuditingEntity implements Serializable {
                 ", engine='" + engine + '\'' +
                 ", typeFuel='" + typeFuel + '\'' +
                 ", model='" + model + '\'' +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
-                ", createdBy='" + createdBy + '\'' +
-                ", modifiedBy='" + modifiedBy + '\'' +
                 '}';
     }
 }

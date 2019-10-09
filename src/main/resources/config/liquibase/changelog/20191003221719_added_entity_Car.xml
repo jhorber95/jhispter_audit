@@ -52,7 +52,7 @@
     </changeSet>
     
     <!-- Added the entity audit columns -->
-    <changeSet id="20191007142211-audit-1" author="jhipster-audit-helper">
+  <!--  <changeSet id="20191007142211-audit-1" author="jhipster-audit-helper">
         <addColumn tableName="car">
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
@@ -63,7 +63,7 @@
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
         </addColumn>
-    </changeSet>
+    </changeSet>-->
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 
     <!--

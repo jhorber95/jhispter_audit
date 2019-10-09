@@ -1,0 +1,44 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="jhorkman" id="1558569969461-26">
+        <addColumn tableName="jhi_entity_audit_event">
+            <column name="ip_address" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="jhorkman" id="1558566461-26">
+        <addColumn tableName="jhi_entity_audit_event">
+            <column name="user_agent" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="jhorkman" id="155869969461-26">
+        <addColumn tableName="jhi_entity_audit_event">
+            <column name="operating_system" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="jhorkman" id="1585699661-26">
+        <addColumn tableName="jhi_entity_audit_event">
+            <column name="full_url" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="jhorkman" id="1558969461-26">
+        <addColumn tableName="jhi_entity_audit_event">
+            <column name="referrer" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

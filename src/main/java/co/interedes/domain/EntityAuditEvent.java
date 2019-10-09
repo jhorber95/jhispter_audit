@@ -50,6 +50,22 @@ public class EntityAuditEvent implements Serializable {
     @Column(name = "modified_date", nullable = false)
     private Instant modifiedDate;
 
+    @Column(name = "ip_address")
+    private String ipAddress;
+
+    @Column(name = "user_agent")
+    private String userAgent;
+
+    @Column(name = "operating_system")
+    private String operatingSystem;
+
+    @Column(name = "full_url")
+    private String fullUrl;
+
+    @Column(name = "referrer")
+    private String referrer;
+
+
     public Long getId() {
         return id;
     }
@@ -114,29 +130,89 @@ public class EntityAuditEvent implements Serializable {
         this.modifiedDate = modifiedDate;
     }
 
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    public String getOperatingSystem() {
+        return operatingSystem;
+    }
+
+    public void setOperatingSystem(String operatingSystem) {
+        this.operatingSystem = operatingSystem;
+    }
+
+    public String getFullUrl() {
+        return fullUrl;
+    }
+
+    public void setFullUrl(String fullUrl) {
+        this.fullUrl = fullUrl;
+    }
+
+    public String getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        this.referrer = referrer;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        EntityAuditEvent entityAuditEvent = (EntityAuditEvent) o;
-        return Objects.equals(id, entityAuditEvent.id);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EntityAuditEvent that = (EntityAuditEvent) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(entityId, that.entityId) &&
+                Objects.equals(entityType, that.entityType) &&
+                Objects.equals(action, that.action) &&
+                Objects.equals(entityValue, that.entityValue) &&
+                Objects.equals(commitVersion, that.commitVersion) &&
+                Objects.equals(modifiedBy, that.modifiedBy) &&
+                Objects.equals(modifiedDate, that.modifiedDate) &&
+                Objects.equals(ipAddress, that.ipAddress) &&
+                Objects.equals(userAgent, that.userAgent) &&
+                Objects.equals(operatingSystem, that.operatingSystem) &&
+                Objects.equals(fullUrl, that.fullUrl) &&
+                Objects.equals(referrer, that.referrer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, entityId, entityType, action, entityValue, commitVersion, modifiedBy, modifiedDate, ipAddress, userAgent, operatingSystem, fullUrl, referrer);
     }
 
     @Override
     public String toString() {
-        return "EntityAuditEvent{" + "id=" + id + ", entityId='" + entityId + "'" + ", entityType='" + entityType + "'"
-                + ", action='" + action + "'" + ", entityValue='" + entityValue + "'" + ", commitVersion='"
-                + commitVersion + "'" + ", modifiedBy='" + modifiedBy + "'" + ", modifiedDate='" + modifiedDate + "'"
-                + '}';
+        return "EntityAuditEvent{" +
+                "id=" + id +
+                ", entityId=" + entityId +
+                ", entityType='" + entityType + '\'' +
+                ", action='" + action + '\'' +
+                ", entityValue='" + entityValue + '\'' +
+                ", commitVersion=" + commitVersion +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", modifiedDate=" + modifiedDate +
+                ", ipAddress='" + ipAddress + '\'' +
+                ", userAgent='" + userAgent + '\'' +
+                ", operatingSystem='" + operatingSystem + '\'' +
+                ", fullUrl='" + fullUrl + '\'' +
+                ", referrer='" + referrer + '\'' +
+                '}';
     }
 
 }
